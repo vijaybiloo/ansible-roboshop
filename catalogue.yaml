@@ -71,7 +71,7 @@
       name: mongodb-org-shell
       state: present
 
-  - name: load catalogue date
+  - name: load catalogue data
     ansible.builtin.command: mongo --host mongodb.jiondevops.site < /app/schema/catalogue.js
 
   - name: restart catalogue

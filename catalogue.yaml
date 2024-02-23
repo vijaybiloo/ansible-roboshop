@@ -18,7 +18,7 @@
   - when: out.rc != 0
     name: create user roboshop
     become: yes # we need sudo access for this task only
-    ansible.builin.user:
+    ansible.builtin.user:
       name: roboshop
 
   - name: check /app directory exists or not

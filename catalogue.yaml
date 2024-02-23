@@ -37,7 +37,7 @@
       state: directory
 
   - name: download catalogue artifact
-    ansible.builtin.grt_url:
+    ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /opt
 

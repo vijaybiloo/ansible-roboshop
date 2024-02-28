@@ -1,32 +1,32 @@
 [mongodb]
-mongodb.jiondevops.site
+mongodb.vijaydeepak0812.online
 
 [catalogue]
-catalogue.jiondevops.site
+catalogue.vijaydeepak0812.online
 
 [web-nginx]
-web-nginx.jiondevops.site
+web-nginx.vijaydeepak0812.online
 
 [redis]
-redis.jiondevops.site
+redis.vijaydeepak0812.online
 
 [user]
-user.jiondevops.site
+user.vijaydeepak0812.online
 
 [cart]
-cart.jiondevops.site
+cart.vijaydeepak0812.online
 
 [mysql]
-mysql.jiondevops.site
+mysql.vijaydeepak0812.online
 
 [shipping]
-shipping.jiondevops.site
+shipping.vijaydeepak0812.online
 
 [rabbitmq]
-rabbitmq.jiondevops.site
+rabbitmq.vijaydeepak0812.online
 
 [payment]
-payment.jiondevops.site
+payment.vijaydeepak0812.online
 
 [dispatch]
-dispatch.jiondevops.site
+dispatch.vijaydeepak0812.online

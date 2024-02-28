@@ -67,7 +67,7 @@
       state: installed
 
   - name: load user date
-    ansible.builtin.command: mongo --host mongodb.jiondevops.site </app/schema/user.js
+    ansible.builtin.command: mongo --host mongodb.vijaydeepak0812.online </app/schema/user.js
 
   - name: restart user
     ansible.builtin.service:

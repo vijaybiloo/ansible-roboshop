@@ -1,21 +1,21 @@
-- name: Install shipping component
+- name: Install Shipping component
   hosts: shipping
   become: yes
   tasks:
-  - name: Install maven
+  - name: Install Maven
     ansible.builtin.yum:
       name: maven
-      state: present
+      state: installed
 
   - name: check roboshop user exist or not
-    ansible.bultin.command: id roboshop
-    register: out # output is variable name
+    ansible.builtin.command: id roboshop
+    register: out #output is variable name
     ignore_errors: true
 
   - when: out.rc != 0
     name: create user roboshop
+    become: yes # we need sudo access for this task only
     ansible.builtin.user:
-    become: yes # we need sudo access only for this tasks only
       name: roboshop
 
   - name: check /app directory exists or not
@@ -33,16 +33,11 @@
       path: /app
       state: directory
 
-  - name: Download shipping artifact
-    ansible.builtin.get_url:
-      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-      dest: /opt
-
-  - name: Extract shipping artifact
+  - name: Download shipping and extract
     ansible.builtin.unarchive:
-      src: /opt/shipping.zip
+      src: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest: /app
-    remote_src: yes
+      remote_src: yes
 
   - name: maven package
     ansible.builtin.command: mvn clean package
@@ -59,18 +54,18 @@
       src: shipping.service
       dest: /etc/systemd/system/shipping.service
 
-  - name: daemon reload
+  - name: deamon reload
     ansible.builtin.systemd:
       daemon_reload: true
 
-  - name: install MySQl client
+  - name: Install MySQL client
     ansible.builtin.yum:
       name: mysql
-      state: present
+      state: installed
 
   - name: load mysql schema
-    ansible.builtin.command: mysql -h mysql.vijaydeepak0812.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
-
+    ansible.builtin.shell: mysql -h mysql.vijaydeepak0812.online -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+  
   - name: restart shipping
     ansible.builtin.service:
       name: shipping

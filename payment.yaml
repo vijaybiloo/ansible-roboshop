@@ -1,11 +1,11 @@
-- name: Install Payment component
+- name: Install Payment
   hosts: payment
   become: yes
   tasks:
-  - name: Install Python, gcc and devel
+  - name: Install Python
     ansible.builtin.yum:
       name: "{{item}}"
-      state: present
+      state: installed
     loop:
     - python36
     - gcc
@@ -13,11 +13,12 @@
 
   - name: check roboshop user exist or not
     ansible.builtin.command: id roboshop
-    register: out # output is variable name
+    register: out #output is variable name
     ignore_errors: true
 
   - when: out.rc != 0
     name: create user roboshop
+    become: yes # we need sudo access for this task only
     ansible.builtin.user:
       name: roboshop
 
@@ -34,18 +35,13 @@
     name: create /app directory
     ansible.builtin.file:
       path: /app
-      state; directory
+      state: directory
 
-  - name: download payment artifact
-    ansible.builtin.url_get:
-      url: https://roboshop-builds.s3.amazonaws.com/payment.zip
-      dest: /opt
-
-  - name: Extract payment artifact
+  - name: Download payment and extract
     ansible.builtin.unarchive:
-      src: /opt/payment.zip
+      src: https://roboshop-builds.s3.amazonaws.com/payment.zip
       dest: /app
-    remote_src: yes
+      remote_src: yes
 
   - name: Install dependencies
     ansible.builtin.command: pip3.6 install -r requirements.txt
@@ -57,11 +53,11 @@
       src: payment.service
       dest: /etc/systemd/system/payment.service
 
-  - name: daemon reload
+  - name: deamon reload
     ansible.builtin.systemd:
       daemon_reload: true
 
-  - name: Restart payment
+  - name: restart payment
     ansible.builtin.service:
       name: payment
       state: restarted

@@ -45,12 +45,13 @@
       remote_src: yes
 
   - name: Download the dependencies and build the software
-    ansible.builtin.command:
-    argv:
+    ansible.builtin.command: "{{item}}"
+    args:
+      chdir: /app
+      loops:
       - go mod init dispatch
       - go get
       - go build
-    chdir: /app
 
   - name: Copy dispatch service
     ansible.builtin.copy:

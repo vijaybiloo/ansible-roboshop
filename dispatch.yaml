@@ -50,7 +50,7 @@
       - go mod init dispatch
       - go get
       - go build
-    creates: /app
+    chdir: /app
 
   - name: Copy dispatch service
     ansible.builtin.copy:

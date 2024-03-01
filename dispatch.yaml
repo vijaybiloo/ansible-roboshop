@@ -48,7 +48,7 @@
     ansible.builtin.shell: "{{item}}"
     args:
       chdir: /app
-      loops:
+      with_items:
       - go mod init dispatch
       - go get
       - go build

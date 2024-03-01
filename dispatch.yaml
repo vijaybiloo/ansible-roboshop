@@ -45,7 +45,7 @@
       remote_src: yes
 
   - name: Download the dependencies and build the software
-    ansible.builtin.command: "{{item}}"
+    ansible.builtin.shell: "{{item}}"
     args:
       chdir: /app
       loops:
